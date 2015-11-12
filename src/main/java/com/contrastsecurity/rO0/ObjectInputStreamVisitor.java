@@ -1,4 +1,4 @@
-package com.contrastsecurity.foil;
+package com.contrastsecurity.rO0;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;

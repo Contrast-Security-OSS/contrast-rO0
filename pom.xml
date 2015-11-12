@@ -2,7 +2,7 @@
 	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.contrastsecurity</groupId>
-	<artifactId>deserial-foil</artifactId>
+	<artifactId>contrast-rO0</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<dependencies>
@@ -25,7 +25,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>deserial-foil</finalName>
+		<finalName>contrast-rO0</finalName>
 		<plugins>
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -44,7 +44,7 @@
                         <filter>
                             <artifact>*:*</artifact>
                             <includes>
-                                <include>com/contrastsecurity/foil/**</include>
+                                <include>com/contrastsecurity/rO0/**</include>
                                 <include>org/objectweb/**</include>
                                 <include>META-INF/MANIFEST.MF</include>
                             </includes>
@@ -53,7 +53,7 @@
                     <relocations>
                         <relocation>
                             <pattern>org.objectweb</pattern>
-                            <shadedPattern>com.contrastsecurity.foil.thirdparty.org.objectweb</shadedPattern>
+                            <shadedPattern>com.contrastsecurity.rO0.thirdparty.org.objectweb</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -66,12 +66,12 @@
 					<archive>
 						<manifest>
 							<mainClass>
-								com.contrastsecurity.foil.FoilAgent
+								com.contrastsecurity.rO0.RO0Agent
 							</mainClass>
 						</manifest>
 						<manifestEntries>
-							<Premain-Class>com.contrastsecurity.foil.FoilAgent</Premain-Class>
-							<Agent-Class>com.contrastsecurity.foil.FoilAgent</Agent-Class>
+							<Premain-Class>com.contrastsecurity.rO0.RO0Agent</Premain-Class>
+							<Agent-Class>com.contrastsecurity.rO0.RO0Agent</Agent-Class>
 							<Boot-Class-Path>${build.finalName}.jar</Boot-Class-Path>
 							<Can-Redefine-Classes>true</Can-Redefine-Classes>
 							<Can-Retransform-Classes>true</Can-Retransform-Classes>

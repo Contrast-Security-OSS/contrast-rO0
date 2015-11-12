@@ -1,4 +1,4 @@
-package com.contrastsecurity.foil;
+package com.contrastsecurity.rO0;
 
 import java.io.ObjectStreamClass;
 
@@ -7,8 +7,8 @@ public class ResolveClassController {
 	public static void onResolveClass(ObjectStreamClass streamClass) {
 		String name = streamClass.getName();
 		if(isLikelyExploitGadget(name)) {
-			String message = "Likely exploit gadget encoutered during serialization: " + name;
-			FoilAgent.out(message);
+			String message = "Likely exploit gadget encoutered during deserialization: " + name;
+			RO0Agent.out(message);
 			throw new SecurityException(message);
 		}
 	}
