@@ -30,6 +30,7 @@ public class FoilTransformer implements ClassFileTransformer {
 			ClassVisitor visitor = new ObjectInputStreamVisitor(writer);
 			reader.accept(visitor, ClassReader.EXPAND_FRAMES);
 			transformedBytecode = writer.toByteArray();
+			FoilAgent.out("Protection against deserialization attacks added to java.io.ObjectInputStream");
 		} catch (Throwable t) {
 			FoilAgent.out("Problem instrumenting java.io.ObjectInputStream -- no deserialization protection in place");
 			t.printStackTrace();

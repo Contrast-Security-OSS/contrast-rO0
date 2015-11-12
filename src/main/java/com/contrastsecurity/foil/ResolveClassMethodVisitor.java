@@ -16,6 +16,7 @@ public class ResolveClassMethodVisitor extends AdviceAdapter {
 	protected void onMethodEnter() {
 		Type type = Type.getType(ResolveClassController.class);
 		Method method = new Method("onResolveClass", "(Ljava/io/ObjectStreamClass;)V");
+		loadArg(0);
 		invokeStatic(type,method);
 	}
 }

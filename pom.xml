@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.contrastsecurity</groupId>
 	<artifactId>deserial-foil</artifactId>
@@ -11,9 +11,21 @@
             <artifactId>asm-debug-all</artifactId>
             <version>5.0.3</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.1</version>
+        </dependency>
 	</dependencies>
 
 	<build>
+		<finalName>deserial-foil</finalName>
 		<plugins>
 			<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -34,6 +46,7 @@
                             <includes>
                                 <include>com/contrastsecurity/foil/**</include>
                                 <include>org/objectweb/**</include>
+                                <include>META-INF/MANIFEST.MF</include>
                             </includes>
                         </filter>
                     </filters>
@@ -59,7 +72,7 @@
 						<manifestEntries>
 							<Premain-Class>com.contrastsecurity.foil.FoilAgent</Premain-Class>
 							<Agent-Class>com.contrastsecurity.foil.FoilAgent</Agent-Class>
-							<Boot-Class-Path>deserial-foil.jar</Boot-Class-Path>
+							<Boot-Class-Path>${build.finalName}.jar</Boot-Class-Path>
 							<Can-Redefine-Classes>true</Can-Redefine-Classes>
 							<Can-Retransform-Classes>true</Can-Retransform-Classes>
 							<Can-Set-Native-Method-Prefix>true</Can-Set-Native-Method-Prefix>
@@ -68,6 +81,31 @@
 					</archive>
 				</configuration>
 			</plugin>
+			<plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.9</version>
+                <configuration>
+                    <skip>false</skip>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>verify-serialization-security</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>test</goal>
+                        </goals>
+                        <configuration>
+                            <runOrder>alphabetical</runOrder>
+                            <skip>false</skip>
+                            <forkMode>once</forkMode>
+                            <argLine>
+                                -javaagent:${project.build.directory}/${build.finalName}.jar
+                            </argLine>
+                            <useSystemClassLoader>false</useSystemClassLoader>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 		</plugins>
 	</build>
 </project>
