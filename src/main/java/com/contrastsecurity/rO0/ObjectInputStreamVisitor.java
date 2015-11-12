@@ -4,9 +4,6 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-/**
- * 
- */
 public class ObjectInputStreamVisitor extends ClassVisitor {
 
 	public ObjectInputStreamVisitor(ClassVisitor cv) {

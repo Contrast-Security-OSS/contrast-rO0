@@ -4,6 +4,10 @@ import java.io.ObjectStreamClass;
 
 public class ResolveClassController {
 
+	/**
+	 * This is invoked at the beginning of java.io.ObjectInputStream#resolveClass().
+	 * @param streamClass the parameter passed to resolveClass()
+	 */
 	public static void onResolveClass(ObjectStreamClass streamClass) {
 		String name = streamClass.getName();
 		if(isLikelyExploitGadget(name)) {
@@ -13,7 +17,10 @@ public class ResolveClassController {
 		}
 	}
 
-	private static boolean isLikelyExploitGadget(String name) {
+	/**
+	 * Simple class name checking that finds exploitable classes, even if they've been shaded.
+	 */
+	static boolean isLikelyExploitGadget(String name) {
 		boolean isGadget = false;
 		if(name.endsWith("org.apache.commons.collections.functors.InvokerTransformer")) {
 			isGadget = true;

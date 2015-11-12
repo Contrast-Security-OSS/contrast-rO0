@@ -12,6 +12,9 @@ public class ResolveClassMethodVisitor extends AdviceAdapter {
 		super(Opcodes.ASM5, mv, access, name, desc);
 	}
 
+	/**
+	 * Fire off our sensor at the beginning of ObjectInputStream#resolveClass(java.io.ObjectStreamClass).
+	 */
 	@Override
 	protected void onMethodEnter() {
 		Type type = Type.getType(ResolveClassController.class);
