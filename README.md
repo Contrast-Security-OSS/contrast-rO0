@@ -2,7 +2,8 @@ contrast-rO0
 ========
 
 A lightweight Java agent for preventing attacks against object deserialization
-like those discussed in [0] and [1], affecting WebLogic, JBoss, Jenkins and
+like those discussed by [@breenmachine](http://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/#websphere)
+and the original researchers [@frohoff and @gebl](http://www.slideshare.net/frohoff1/appseccali-2015-marshalling-pickles), affecting WebLogic, JBoss, Jenkins and
 more.
 
 ## Why did you make this?
