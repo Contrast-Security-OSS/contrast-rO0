@@ -18,6 +18,8 @@ Add the following JVM option to your server or application:
 -javaagent:/path/to/contrast-rO0.jar
 ```
 
+You're safe.
+
 ## What does it do?
 If the agent is enabled, it will throw a SecurityException if any of the following classes
 are attempted to be deserialized. These classes represent the "last mile" of the exploit 
