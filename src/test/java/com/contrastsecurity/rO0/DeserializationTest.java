@@ -6,11 +6,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.StringWriter;
 import java.util.BitSet;
 
 import org.apache.commons.collections.functors.InvokerTransformer;
 
+import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 public class DeserializationTest extends TestCase {
@@ -30,10 +33,11 @@ public class DeserializationTest extends TestCase {
 			// try deserialized the file we just wrote -- should break!
 			transformer = (InvokerTransformer) deserialize(serializedFile);
 			fail("should have failed to deserialize!");
+		} catch(AssertionFailedError e) {
+			throw e;
 		} catch (SecurityException e) {
 			// expected
 		} catch (Throwable t) {
-			t.printStackTrace();
 			fail("Shouldn't have failed for non-security reasons");
 		}
 	}

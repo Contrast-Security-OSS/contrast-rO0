@@ -85,7 +85,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.9</version>
                 <configuration>
-                    <skip>false</skip>
+                    <skip>true</skip>
                 </configuration>
                 <executions>
                     <execution>
@@ -101,7 +101,6 @@
                             <argLine>
                                 -javaagent:${project.build.directory}/${build.finalName}.jar
                             </argLine>
-                            <useSystemClassLoader>false</useSystemClassLoader>
                         </configuration>
                     </execution>
                 </executions>
