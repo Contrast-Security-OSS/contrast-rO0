@@ -41,3 +41,11 @@ likely won't be part of any mass exploitation tool for a while.
 Although it's not tested on them all, the agent should work well on the following platforms:
 * Java 5-8
 * OpenJDK/HotSpot, JRockit, IBM
+
+## How do I build the agent?
+```
+git clone https://github.com/Contrast-Security-OSS/contrast-rO0.git
+cd contrast-rO0
+mvn clean package test
+```
+Now the contrast-rO0.jar agent has been built and verified, and placed in /target. 
