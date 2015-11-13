@@ -38,6 +38,6 @@ Though there likely exists other exploitable classes, they are difficult to find
 likely won't be part of any mass exploitation tool for a while.
 
 ## Supported systems
-Although it's not tested on them all, the agent should work great on the following platforms:
+Although it's not tested on them all, the agent should work well on the following platforms:
 * Java 5-8
 * OpenJDK/HotSpot, JRockit, IBM
