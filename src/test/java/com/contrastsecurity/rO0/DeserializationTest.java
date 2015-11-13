@@ -29,6 +29,7 @@ public class DeserializationTest extends TestCase {
 		try {
 			// try deserialized the file we just wrote -- should break!
 			transformer = (InvokerTransformer) deserialize(serializedFile);
+			fail("should have failed to deserialize!");
 		} catch (SecurityException e) {
 			// expected
 		} catch (Throwable t) {
