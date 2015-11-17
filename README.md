@@ -46,3 +46,8 @@ likely won't be part of any mass exploitation tool for a while.
 Although it's not tested on them all, the agent should work well on the following platforms:
 * Java 5-8
 * OpenJDK/HotSpot, JRockit, IBM
+
+## Who made this?
+This project is sponsored by [Contrast Security](http://www.contrastsecurity.com/) and released under the BSD license for developers.
+
+[Contrast Security Logo](http://cdn2.hubspot.net/hub/203759/file-2275798868-png/theme/Contrast-logo-transparent.png "Contrast Logo")
