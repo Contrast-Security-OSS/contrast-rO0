@@ -50,4 +50,4 @@ Although it's not tested on them all, the agent should work well on the followin
 ## Who made this?
 This project is sponsored by [Contrast Security](http://www.contrastsecurity.com/) and released under the BSD license for developers.
 
-[Contrast Security Logo](http://cdn2.hubspot.net/hub/203759/file-2275798868-png/theme/Contrast-logo-transparent.png "Contrast Logo")
+![Contrast Security Logo](http://cdn2.hubspot.net/hub/203759/file-2275798868-png/theme/Contrast-logo-transparent.png "Contrast Logo")
