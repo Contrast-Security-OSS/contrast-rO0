@@ -36,6 +36,8 @@ public class ResolveClassController {
 			isGadget = true;
 		} else if (name.endsWith("org.springframework.beans.factory.ObjectFactory")) {
 			isGadget = true;
+		} else if(name.endsWith("org.springframework.core.SerializableTypeWrapper$MethodInvokeTypeProvider")) {
+			isGadget = true;
 		}
 		return isGadget;
 	}
