@@ -13,12 +13,17 @@ available for a long time. Because of the nature of the vulnerability, some
 applications will have to re-architect their messaging completely.
 
 ## How do I use the agent?
-Add the following JVM option to your server or application:
+Build the agent, first:
+```
+git clone https://github.com/Contrast-Security-OSS/contrast-rO0.git
+cd contrast-rO0
+mvn clean package test
+```
+The agent, contrast-rO0.jar, is now in the /target directory. The final step is to add the following JVM option to your server or application:
 ```
 -javaagent:/path/to/contrast-rO0.jar
 ```
-
-You're safe.
+Now you're safe!
 
 ## What does it do?
 If the agent is enabled, it will throw a SecurityException if any of the following classes
@@ -41,3 +46,8 @@ likely won't be part of any mass exploitation tool for a while.
 Although it's not tested on them all, the agent should work well on the following platforms:
 * Java 5-8
 * OpenJDK/HotSpot, JRockit, IBM
+
+## Who made this?
+This project is sponsored by [Contrast Security](http://www.contrastsecurity.com/) and released under the BSD license for developers.
+
+![Contrast Security Logo](http://cdn2.hubspot.net/hub/203759/file-2275798868-png/theme/Contrast-logo-transparent.png "Contrast Logo")
