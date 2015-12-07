@@ -1,0 +1,13 @@
+############
+# HELP
+#
+# First chracter	Meaning
+# --------------	-------
+#	#		comment
+#	-		blacklist
+#	+		whitelist
+#	$		ignore during reporting if CLASS matcheso
+#	@		ignore during reporting if on stack 
++com.contrastsecurity.rO0.TestCases.WhitelistElement
+-com.contrastsecurity.rO0.TestCases.BlacklistElement
+$com.contrastsecurity.rO0.TestCases.IgnoreClassListElement
