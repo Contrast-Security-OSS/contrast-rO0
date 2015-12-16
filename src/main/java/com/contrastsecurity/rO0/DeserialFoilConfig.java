@@ -196,6 +196,7 @@ public class DeserialFoilConfig {
 		return isOnList(blacklist, name);
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean isBlacklisted(Class klass) {
 		return isBlacklisted(klass.getName());
 	}
@@ -224,6 +225,7 @@ public class DeserialFoilConfig {
 		return isOnList(whitelist, name);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public boolean isWhitelisted(Class klass) {
 		return isWhitelisted(klass.getName());
 	}
@@ -243,7 +245,7 @@ public class DeserialFoilConfig {
 		
 		if(list.size() == 0 ) return false;
 		
-		for(int i=1; i<list.size(); i++){
+		for(int i=0; i<list.size(); i++){
 			String listName = (String) list.get(i);
 			if( name.endsWith(listName) ) 
 			{
@@ -296,6 +298,7 @@ public class DeserialFoilConfig {
 		addToList(whitelist, line);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void addToWhitelist(Class klass){
 		addToWhitelist(klass.getName());
 	}
@@ -310,6 +313,7 @@ public class DeserialFoilConfig {
 		addToList(blacklist, line);
 	}
 	
+	@SuppressWarnings("rawtypes")
 	public void addToBlacklist(Class klass) {
 		addToBlacklist(klass.getName());
 	}
@@ -341,10 +345,12 @@ public class DeserialFoilConfig {
 		this.reportingEnabled = enabled;
 	}
 
+	@SuppressWarnings("rawtypes")
 	public void addToClassIgnoreList(Class class1) {
 		addToClassIgnoreList(class1.getName());
 	}
 
+	@SuppressWarnings("rawtypes")
 	public boolean includeInReport(Class class1) {
 		return this.includeInReport(class1.getName());
 	}
