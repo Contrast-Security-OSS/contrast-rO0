@@ -39,7 +39,7 @@ public class RO0Agent {
 	
 	private static void readEnvironment() {
 		
-		String outfile = System.getProperty("RO0.outfile");
+		String outfile = System.getProperty("rO0.outfile");
 		if( outfile != null && !outfile.equals("") ) {
 			out("redirecting output to " + outfile);
 			try {
