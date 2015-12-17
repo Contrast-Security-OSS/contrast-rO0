@@ -2,20 +2,20 @@ package com.contrastsecurity.rO0.TestCases;
 
 import java.io.FileNotFoundException;
 
-import com.contrastsecurity.rO0.DeserialFoilConfig;
+import com.contrastsecurity.rO0.RO0Config;
 import com.contrastsecurity.rO0.RO0Agent;
 import com.contrastsecurity.rO0.TestCases.BlacklistElement;
 import com.contrastsecurity.rO0.TestCases.IgnoreClassListElement;
 import com.contrastsecurity.rO0.TestCases.UnlistedElement;
 import com.contrastsecurity.rO0.TestCases.WhitelistElement;
 
-public class TestDeserialFoilConfig 
+public class TestRO0Config 
 extends Test
 {
 
 	public void run() {
 		RO0Agent.out("----- Beginning DeserialFoilConfig tests -----");
-		DeserialFoilConfig config = new DeserialFoilConfig();
+		RO0Config config = new RO0Config();
 
 		RO0Agent.out("----- Testing All-Disabled Config -----");
 		config.setBlacklisting(false);;
@@ -137,7 +137,7 @@ extends Test
 				false);
 		
 		RO0Agent.out("----- Test proper loading of config file -----");
-		config = new DeserialFoilConfig();
+		config = new RO0Config();
 		try {
 			config.readConfig("../config/unit_test_config_1");
 			config.readConfig("../config/unit_test_config_2");

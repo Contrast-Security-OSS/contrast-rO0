@@ -1,6 +1,6 @@
 package com.akamai.security;
 
-import com.contrastsecurity.rO0.DeserialFoilConfig;
+import com.contrastsecurity.rO0.RO0Config;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
@@ -9,7 +9,7 @@ import java.util.Hashtable;
 
 public class SafeObjectInputStream extends ObjectInputStream {
 
-	DeserialFoilConfig config = new DeserialFoilConfig();
+	RO0Config config = new RO0Config();
 	
 	Hashtable<String,String> classList = new Hashtable<String,String>();
 
@@ -53,9 +53,9 @@ public class SafeObjectInputStream extends ObjectInputStream {
 		config.addToBlacklist(klass);
 	}
 		
-	public DeserialFoilConfig getConfig() { return config; }
+	public RO0Config getConfig() { return config; }
 	
-	public void setConfig(DeserialFoilConfig config){ this.config = config; }
+	public void setConfig(RO0Config config){ this.config = config; }
 	
 	protected Class<?> resolveClass(ObjectStreamClass desc) 
 		throws IOException, ClassNotFoundException

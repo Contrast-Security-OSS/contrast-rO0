@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
 
-public class DeserialFoilConfig {
+public class RO0Config {
 
 	/** Flag indicating if reporting is enalbed or disabled.  Enabled by default.  **/
 	private boolean reportingEnabled = true;

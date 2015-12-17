@@ -12,7 +12,7 @@ import java.lang.instrument.Instrumentation;
  */
 public class RO0Agent {
 	
-	public static DeserialFoilConfig config = new DeserialFoilConfig();
+	public static RO0Config config = new RO0Config();
 	
 	// added to make unit testing / prerequisite verification easier
 	public static boolean loaded = false;
