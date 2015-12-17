@@ -8,11 +8,12 @@ more.
 
 ## Why did you make this?
 This is the only way to hotpatch your application against this vulnerability. 
-Patching the code is possible, but for many applications, patches will not be
-available for a long time. Because of the nature of the vulnerability, some
-applications will have to re-architect their messaging completely.
+Patching the code is possible (and this package contains SafeObjectInputStream to help), 
+but for many applications, patches will not be available for a long time. Because of 
+the nature of the vulnerability, some applications will have to re-architect their 
+messaging completely.
 
-## How do I use the agent?
+## How do I use the library?
 
 
 ### JVM-wide fix
@@ -38,22 +39,24 @@ Now you're safe serializing from known dangerous classes!
 
 If you'd prefer to spot fix your code, possibly because you need to use dangerous classes somewhere, or because you need to minimize stability risk, you can use the SafeObjectInputStream class.  To use this class, you'll need to replace calls to ObjectInputStream in your code with calls to SafeObjectInputStream.  
 
-When you use SafeObjectInputStream, you can either whitelist or blacklist classes - whitelisting is afer, but blacklisting has lower stability risk.  If you want to use this, you don't need the java command line options listed above.  Instead, construct your SafeObejctInputStream, tell it if you want to blacklist or whitelist, and add the whitelisted/blacklisted classes to the stream.  NOTE: you'll have to repeat this everywhere in your code where you need to impelement safe deserialization.
+When you use SafeObjectInputStream, you can either whitelist or blacklist classes - whitelisting is safer, but blacklisting has lower stability risk.  If you want to use this, you don't need the java command line options listed above.  Instead, construct your SafeObejctInputStream, tell it if you want to blacklist or whitelist, and add the whitelisted/blacklisted classes to the stream.  NOTE: you'll have to repeat this everywhere in your code where you need to implement safe deserialization.
 
 ```
 SafeObjectInputStream in 
-   = new SafeObjectInputStream(inputStream, SafeObjectInputStream.WHITELIST);
+   = new SafeObjectInputStream(inputStream, true);  // whitelisting mode
 // or 
-// = new SafeObjectInputStream(inputStream, SafeObjectInputStream.BLACKLIST);
-in.addToList(ClassThatIsSafeToDeserialize.getName());
-in.addToList("com.my.SafeDeserializable");
+// = new SafeObjectInputStream(inputStream, false); // blacklisting mode
+in.addToWhitelist(ClassThatIsSafeToDeserialize.getName());
+in.addToWhitelist("com.my.SafeDeserializable");
+// or
+// in.addToBlacklist(ClassThatIsDangerous.class);
 
 // then just use like normal
 in.readObject();
 ```
 
 ### Reporting on Serialization Usage
-The shim can be instructed to report when serialization occurs.  This allows you to determine where in your application deserialation is actually occuring - assuming that you exercise the relevant functionality.
+The shim can be instructed to report when serialization occurs.  This allows you to determine where in your application deserialization is actually occurring - assuming that you exercise the relevant functionality.
 
 To use this, built it just as described in "JVM-wide fix" but, use the following command line options instead:
 
@@ -74,14 +77,14 @@ This represents the "last mile" of the exploit chain. The default blacklist cont
 * org.codehaus.groovy.runtime.MethodClosure
 * org.springframework.beans.factory.ObjectFactory
 
-Though there likely exists other exploitable classes, they are difficult to find, and likely won't be part of any mass exploitation tool for a while.
+Though there likely exist other exploitable classes, they are difficult to find, and likely won't be part of any mass exploitation tool for a while.
 
-However, when they do become avialable, you can update your configuration file to include these classes in your blacklist.  Or, if you want to be more secure, you can use this tool in "reporting" mode to find learn what you're deserializing, and then specify a whitelist of the classes that you want to allow.  If you go this approach, and you don't happen to include a dangerous class in your whitelist, then new reserach finding additional dangerous classes won't affect you.
+However, when they do become available, you can update your configuration file to include these classes in your blacklist.  Or, if you want to be more secure, you can use this tool in "reporting" mode to learn what you're deserializing, and then specify a whitelist of the classes that you want to allow.  If you go with this approach, and you don't happen to include a dangerous class in your whitelist, then new research finding additional dangerous classes won't affect you.
 
 ## What's the synopsis of all configuration options and usage modes?
 
 ```
--DrO0.reporting=false      Disable reporting ().  Reporting is enabled by 
+-DrO0.reporting=true       Enable reporting ().  Reporting is enabled by 
                            default.  Intended for use if we ever use this 
                            package for protecting instead of just reporting.
 -DrOo.lists=filename       Specify a configuration file.  File specifies 
@@ -97,7 +100,7 @@ However, when they do become avialable, you can update your configuration file t
         -          If the line starts with -, it’s included in the blacklist.  
                    Attempts to deserialize these classes will throw a 
                    SecurityException.  Only has effect when -DrO0.blacklist is
-                   enalbed.
+                   enabled.
 
         $          If the line starts with $, it’s included in the “ignore 
                    class list”.  Classes in this list will not be reported.
@@ -111,7 +114,7 @@ However, when they do become avialable, you can update your configuration file t
 -DrO0.whitelist=true       Enable whitelisting.  Classes not included in the 
                            config file as whitelisted will not be allowed to 
                            deserialize.  You can enable this at the same time as
-                           blacklisting.  See the seciton on "enabling both 
+                           blacklisting.  See the section on "enabling both 
                            blacklisting and whitelisting at the same time" for
                            details.
 
@@ -119,7 +122,7 @@ However, when they do become avialable, you can update your configuration file t
                            file as blacklisted will not be allowed to 
                            deserialized; all other classes will deserialize 
                            normally.   You can enable this at the same time as
-                           blacklisting.  See the seciton on "enabling both 
+                           blacklisting.  See the section on "enabling both 
                            blacklisting and whitelisting at the same time" for
                            details.
 
