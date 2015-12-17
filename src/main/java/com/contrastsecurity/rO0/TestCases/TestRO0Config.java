@@ -14,7 +14,7 @@ extends Test
 {
 
 	public void run() {
-		RO0Agent.out("----- Beginning DeserialFoilConfig tests -----");
+		RO0Agent.out("----- Beginning RO0Config tests -----");
 		RO0Config config = new RO0Config();
 
 		RO0Agent.out("----- Testing All-Disabled Config -----");

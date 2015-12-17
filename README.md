@@ -146,9 +146,9 @@ However, when they do become available, you can update your configuration file t
                            
 -DrO0.outfile=filename     Used to control where output from this utility is sent.
                            If no output is specified, it will go to System.out.  If
-                           filename is specified, deserial foil will try to write
+                           filename is specified, rO0 will try to write
                            output to the specified location; if it cannot (for example
-                           if permissions disallow this) then deserial foil will instead
+                           if permissions disallow this) then rO0 will instead
                            fall back to System.out. 
 ```
 

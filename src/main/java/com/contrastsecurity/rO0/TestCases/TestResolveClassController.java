@@ -28,7 +28,7 @@ public class TestResolveClassController
 		WhitelistElement whitelistElement = new WhitelistElement();
 		UnlistedElement  unlistedElement = new UnlistedElement();
 		
-		test("verifying flag to load DeserailFoil has been set",
+		test("verifying flag to load rO0 has been set",
 			RO0Agent.loaded,
 			true);
 		
@@ -112,7 +112,7 @@ public class TestResolveClassController
 		
 		// Reporting can't easily be tested without replacing RO0Agent.out... that doesn't seem 
 		// necessary but unit tests could be added if deemed required.  There is related coverage
-		// in TestDeserialFoilConfig, to at least ensure that configuration for reporting
+		// in TestRO0Config, to at least ensure that configuration for reporting
 		// is correctly implemented.
 	}
 	

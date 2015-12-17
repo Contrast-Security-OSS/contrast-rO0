@@ -8,4 +8,4 @@
 #	+		whitelist
 #	$		ignore during reporting if CLASS matcheso
 #	@		ignore during reporting if on stack 
-@com.contrastsecurity.rO0.TestDeserialFoilConfig
+@com.contrastsecurity.rO0.TestRO0Config
