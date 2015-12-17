@@ -46,7 +46,7 @@ public class TestResolveClassController
 			 RO0Agent.config.getReportingEnabled(),
 			 false);
 		test("verifying class ignore is disabled",
-			 RO0Agent.config.getClassIgnoreEnalbed(),
+			 RO0Agent.config.getClassIgnoreEnabled(),
 			 false);
 		test("verifying stack ignore is disabled",
 			 RO0Agent.config.getStackIgnoreEnabled(),

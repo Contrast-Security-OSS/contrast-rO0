@@ -129,7 +129,7 @@ public class RO0Config {
 			return false; 
 		}
 		
-		if( this.getClassIgnoreEnalbed() && isOnClassIgnoreList(className) )
+		if( this.getClassIgnoreEnabled() && isOnClassIgnoreList(className) )
 		{
 			return false;
 		}
@@ -203,7 +203,7 @@ public class RO0Config {
 	
 	public boolean getWhitelistEnabled() { return this.whitelistEnabled; }
 	public boolean getBlacklistEnabled() { return this.blacklistEnabled; }
-	public boolean getClassIgnoreEnalbed() { return this.classIgnoreEnabled; }
+	public boolean getClassIgnoreEnabled() { return this.classIgnoreEnabled; }
 	public boolean getStackIgnoreEnabled() { return this.stackIgnoreEnabled; }
 	public boolean getReportingEnabled() { return this.reportingEnabled; }
 	
