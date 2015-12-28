@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Created-By: Aaron Katz
+Agent-Class: com.contrastsecurity.rO0.RO0Agent
+Premain-Class: com.contrastsecurity.rO0.RO0Agent
+Boot-Class-Path: /Users/akatz/git/rO0/contrast-ro0/bin/contrast-rO0.jar
+Can-Redefine-Classes: true
+Can-Retransform-Classes: true
+Can-Set-Native-Method-Prefix: true
+

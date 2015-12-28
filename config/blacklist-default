@@ -1,0 +1,9 @@
+# Default blacklist that contains all currently known dangerous
+# classes.
+-org.apache.commons.collections.functors.InvokerTransformer
+-org.apache.commons.collections.functors.InstantiateTransformer
+-org.apache.commons.collections4.functors.InvokerTransformer
+-org.apache.commons.collections4.functors.InstantiateTransformer
+-org.codehaus.groovy.runtime.ConvertedClosure
+-org.codehaus.groovy.runtime.MethodClosure
+-org.springframework.beans.factory.ObjectFactory

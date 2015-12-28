@@ -1,0 +1,12 @@
+############
+# HELP
+#
+# First character	Meaning
+# --------------	-------
+#	#		comment
+#	-		blacklist
+#	+		whitelist
+#	$		ignore during reporting if CLASS matches
+#	@		ignore during reporting if on stack 
+@com.contrastsecurity.rO0.TestRO0Agent
+@com.contrastsecurity.Ro).TestResolveClassController
