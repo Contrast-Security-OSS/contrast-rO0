@@ -92,7 +92,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.9</version>
                 <configuration>
-                    <skip>true</skip>
+                    <skip>false</skip>
+                    <redirectTestOutputToFile>true</redirectTestOutputToFile>
+                    <argLine>
+                        -javaagent:${project.build.directory}/${build.finalName}.jar&#61;rO0.reporting:false,rO0.blacklist:true,rO0.lists:${basedir}/config/blacklist-default
+                    </argLine>
                 </configuration>
                 <executions>
                     <execution>
@@ -105,9 +109,6 @@
                             <runOrder>alphabetical</runOrder>
                             <skip>false</skip>
                             <forkMode>once</forkMode>
-                            <argLine>
-                                -javaagent:${project.build.directory}/${build.finalName}.jar
-                            </argLine>
                         </configuration>
                     </execution>
                 </executions>
