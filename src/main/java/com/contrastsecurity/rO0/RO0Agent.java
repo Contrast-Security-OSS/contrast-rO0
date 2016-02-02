@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.instrument.ClassFileTransformer;
 import java.lang.instrument.Instrumentation;
+import java.util.Properties;
 
 /**
  * Install a ClassFileTransformer to instrument ObjectInputStream.
@@ -22,6 +23,12 @@ public class RO0Agent {
 	 * can be configured to go elsewhere.
 	 */
 	private static PrintStream out = System.out;
+
+	/**
+	 * configuration properties as passed in to premain and/or agentmain
+	 */
+	static private Properties properties = null;
+
 	
 	public static void premain(String args, Instrumentation inst) throws IOException {
 		setup(args, inst);
@@ -32,14 +39,18 @@ public class RO0Agent {
 	}
 
 	private static void setup(String args, Instrumentation inst) {
+		properties = parseCommandLine(args);
+		
 		ClassFileTransformer xform = new RO0Transformer();
 		inst.addTransformer(xform);
-		readEnvironment();
+		readConfig(args);
 	}
 	
-	private static void readEnvironment() {
+	private static void readConfig(String args) {
 		
-		String outfile = System.getProperty("rO0.outfile");
+		
+		String outfile = getProperty("rO0.outfile");
+
 		if( outfile != null && !outfile.equals("") ) {
 			out("redirecting output to " + outfile);
 			try {
@@ -51,17 +62,19 @@ public class RO0Agent {
 		}
 
 		try {
-			config.readConfig(System.getProperty("rO0.lists"));
+			String listfile = getProperty("rO0.lists");
+			config.readConfig(listfile);
 		} catch (FileNotFoundException e) {
 			out("failed to read config file");
 			out(e);
 		}
 		
-		String _reporting     = System.getProperty("rO0.reporting");
-		String _ignoreClasses = System.getProperty("rO0.ignoreClasses");
-		String _ignoreStack   = System.getProperty("rO0.ignoreStack");
-		String _whitelist     = System.getProperty("rO0.whitelist");
-		String _blacklist     = System.getProperty("rO0.blacklist");
+		String _reporting     = getProperty("rO0.reporting");
+		String _ignoreClasses = getProperty("rO0.ignoreClasses");
+		String _ignoreStack   = getProperty("rO0.ignoreStack");
+		String _whitelist     = getProperty("rO0.whitelist");
+		String _blacklist     = getProperty("rO0.blacklist");
+		debug("blacklist = " + _blacklist);
 		
 		/* Read configuration from the environment (see the README for details about how to set this
 		 * stuff).  Default is that nothing is enabled.  
@@ -81,11 +94,55 @@ public class RO0Agent {
 		config.setWhitelisting(whitelistEnabled);
 		config.setBlacklisting(blacklistEnabled);
 		
+		debug("Configuration = " + config.toString());
+		
 		loaded = true;
 	}
 	
+	
+	/** 
+	 * Reads the specified property from the properties object; if not found,
+	 * checks the environment.
+	 * 
+	 * @param string the property to read
+	 * @param properties the properties to check
+	 * 
+	 * @return the value as specified by the properties object; if it does not exist
+	 *         in the properties object, the value as specified in the environment;
+	 *         null if not found anywhere.
+	 */
+	private static String getProperty(String string) {
+		if( properties == null ) {
+			return null;
+		}
+		
+		return properties.getProperty(string, System.getProperty(string));
+	}
+
+	private static Properties parseCommandLine(String args) {
+		debug("parsing command line:" + args);
+		Properties properties = new Properties();
+		if( args == null ) return properties;
+
+		// key value pairs separated by commas
+		String[] pairs = args.split(",");
+		for( String pair : pairs) {
+			debug("kvpair = " + pair);
+			if ( pair.length() == 0 ) continue;
+			
+			String[] key_value = pair.split(":");
+			String key = key_value[0];
+			String value = (key_value.length > 1) ? key_value[1] : "";
+			properties.setProperty(key,  value);
+			debug("Added key="+key+" value="+value);
+		}
+		
+		debug("properties = " + properties);
+		return properties;
+	}
+
 	public static void out(String msg) {
-		String quiet = System.getProperty("rO0.quiet");
+		String quiet = getProperty("rO0.quiet");
 		if(quiet == null || !"true".equalsIgnoreCase(quiet)) {
 			out.println("[contrast-rO0] " + msg);
 		}
@@ -93,13 +150,21 @@ public class RO0Agent {
 	
 	
 	public static void out(Throwable t) {
-		String veryQuiet = System.getProperty("rO0.quiet");
-		String quiet = System.getProperty("rO0.noStackTraces");
+		String veryQuiet = getProperty("rO0.quiet");
+		String quiet = getProperty("rO0.noStackTraces");
 		
 		if( veryQuiet != null && "true".equalsIgnoreCase(veryQuiet) ) return;
 		if( quiet     != null && "true".equalsIgnoreCase(quiet) ) return;
 
-		t.printStackTrace(System.out);
+		t.printStackTrace(out);
+	}
+	
+	public static void debug(String s) {
+		String debug = getProperty("rO0.debug");
+		if( debug != null && debug.equals("true") )
+		{
+			out.println("[contrast.rO0] DEBUG: " + s);
+		}
 	}
 	
 	public static void main(String[] args) {

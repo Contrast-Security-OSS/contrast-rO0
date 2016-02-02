@@ -354,5 +354,18 @@ public class RO0Config {
 	public boolean includeInReport(Class class1) {
 		return this.includeInReport(class1.getName());
 	}
+	
+	public String toString() {
+		String string = "rO0Config:{";
+		string += " BLACKLIST:(" + this.blacklistEnabled + this.blacklist + ")";
+		string += " WHITELIST(" + this.whitelistEnabled + this.whitelist + ")";
+		string += " REPORTING(" + this.reportingEnabled;
+		string +=      "CLASSIGNORE(" + this.classIgnoreEnabled + this.classIgnoreList + ")";
+		string +=      "STACKIGNORE(" + this.stackIgnoreEnabled + this.stackIgnoreList + ")";
+		string +=  ")";
+		string += "}";
+		
+		return string;
+	}
 
 }

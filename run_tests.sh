@@ -11,6 +11,9 @@ jar cfm contrast-test.jar ../mf/test.mf    com/contrastsecurity/rO0/TestCases/*.
 jar cfm contrast-ro0.jar  ../mf/contrast.mf com/contrastsecurity/rO0/*.class
 jar cfm contrast-ro0-spotfix.jar ../mf/safeois.mf com/akamai/security/*.class
 
+echo "copying dependencies"
+cp ../lib/* . 
+
 echo "executing tests"
 export JARDIR=`pwd`
 java -javaagent:${JARDIR}/contrast-ro0.jar -Xbootclasspath/p:"${JARDIR}/contrast-rO0.jar:${JARDIR}/asm-5.0.4.jar:${JARDIR}/asm-commons-5.0.4.jar" -jar contrast-test.jar -Dfile.encoding=UTF-8 -classpath ${JARDIR}/asm-5.0.4.jar:${JARDIR}/asm-commons-5.0.4.jar

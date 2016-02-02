@@ -6,9 +6,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.io.Serializable;
-import java.io.StringWriter;
 import java.util.BitSet;
 
 import org.apache.commons.collections.functors.InvokerTransformer;
@@ -17,6 +15,7 @@ import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
 
 public class DeserializationTest extends TestCase {
+
 	
 	public void testDeserialization_Safe() throws Exception {
 		BitSet bitset = new BitSet();
