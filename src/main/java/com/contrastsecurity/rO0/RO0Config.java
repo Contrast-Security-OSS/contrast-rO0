@@ -18,6 +18,12 @@ public class RO0Config {
 	private boolean classIgnoreEnabled = false;
 	
 	/**
+	 * Flag indicating whether we're supposed to ignore any stack traces during
+	 * blacklisting. This can be used to indicate trusted code, but USE WITH CARE.
+	 */
+	private boolean stackWhitelistEnabled = false;
+	
+	/**
 	 * List of classes to ignore during reporting.  That is, don't report if there are 
 	 * deserialization attempts for these classes.  This is to reduce the noise in the log
 	 * file for known safe stuff.
@@ -172,7 +178,10 @@ public class RO0Config {
 	 * @return true if there's a match; false if there's no match.
 	 */
 	private boolean isOnStackIgnoreList(StackTraceElement[] stackTrace) {
-		if( getStackIgnoreEnabled() == false ) return false;
+		if( !getStackIgnoreEnabled() || getStackWhitelistEnabled() ) {
+			return false;
+		}
+		
 		if( stackIgnoreList.isEmpty()   ) return false;
 				
 		for( int i=0; i<stackTrace.length; i++) {
@@ -192,7 +201,7 @@ public class RO0Config {
 	 * @return true if blacklisted; false if not blacklisted or if blacklisting is disabled.
 	 */
 	public boolean isBlacklisted(String name) {
-		if( getBlacklistEnabled() == false ) { return false; }
+		if( getBlacklistEnabled() == false ) { return false; }		
 		return isOnList(blacklist, name);
 	}
 
@@ -201,6 +210,9 @@ public class RO0Config {
 		return isBlacklisted(klass.getName());
 	}
 	
+	public boolean getStackWhitelistEnabled() { 
+		return this.stackWhitelistEnabled;
+	}
 	public boolean getWhitelistEnabled() { return this.whitelistEnabled; }
 	public boolean getBlacklistEnabled() { return this.blacklistEnabled; }
 	public boolean getClassIgnoreEnabled() { return this.classIgnoreEnabled; }
@@ -221,8 +233,11 @@ public class RO0Config {
 	 *         enabled but the class is not whitelisted.
 	 */
 	public boolean isWhitelisted(String name) {
-		if( getWhitelistEnabled() == false ) return true;
-		return isOnList(whitelist, name);
+		if( ! ( getWhitelistEnabled() || getStackWhitelistEnabled() ) ) {
+			return true;
+		}
+		
+		return isOnList(whitelist, name) || isOnStackIgnoreList( Thread.currentThread().getStackTrace() );
 	}
 	
 	@SuppressWarnings("rawtypes")
