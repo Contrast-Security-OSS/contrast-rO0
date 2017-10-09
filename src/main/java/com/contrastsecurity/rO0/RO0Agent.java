@@ -82,7 +82,12 @@ public class RO0Agent {
 		 * If it's null, it's not set, so it's disabled.  If it's not "true" it's not set as we expect
 		 * so it's disabled.
 		 */
-		boolean reportingEnabled   = ( _reporting     != null && ! _reporting.equals("true")  ); // note: this one is enabled by default
+		
+		// This one is enabled by default, so the "null" is opposite. If it's present
+		// it must be "true" to be enabled, but if it's not present, it's still true.
+		boolean reportingEnabled   = ( _reporting     == null || _reporting.equals("true")  ); 
+		
+		// These are normal
 		boolean classIgnoreEnabled = ( _ignoreClasses != null && _ignoreClasses.equals("true") );
 		boolean stackIgnoreEnabled = ( _ignoreStack   != null && _ignoreStack.equals("true")   );
 		boolean whitelistEnabled   = ( _whitelist     != null && _whitelist.equals("true")     );
